@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 60%; margin-left: auto; margin-right: auto">
+    <p th:if="${session.basket.getDeviceNumbers().size()!=0}">
+        <table class="table table-dark table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <tbody>
+            <tr th:each="deviceNumber : ${session.basket.deviceNumbers}">
+                <td>
+    <p th:text="${deviceNumber.device.name}"></p></td>
+    <td><p th:text="${deviceNumber.number}"></p></td>
+    <td><p th:text="${deviceNumber.device.price}"></p></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Total price</td>
+        <td><p th:text="${session.basket.priceDevices()}"></p></td>
+    </tr>
+    </tbody>
+    </table>
+    <form action="/addOrder" method="post">
+        <button>Add order</button>
+    </form>
+    </p>
+    <p th:if="${session.basket.getDeviceNumbers().size()==0}">
+    <h3>Basket is empty</h3>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 60%; display: block; margin-left: auto; margin-right: auto">
+    <form class="row g-3" th:action="@{/devices}" th:object="${device}" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name" name="name"
+                   th:field="*{name}">
+            <label for="floatingInput">Name</label>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></p>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="price" name="price" th:field="*{price}">
+            <label for="floatingInput">Price</label>
+            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: red"></p>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="country" name="country" th:field="*{country}">
+            <label for="floatingInput">Country</label>
+            <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red"></p>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="url" name="url" th:field="*{url}">
+            <label for="floatingInput">URL</label>
+            <p th:if="${#fields.hasErrors('url')}" th:errors="*{url}" style="color: red"></p>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"
+                      name="description" th:field="*{description}"></textarea>
+        </div>
+        <select class="form-select" aria-label="Default select example" th:field="*{category}">
+            <option th:each="category : ${categories}" th:value="${category.getName()}"
+                    th:text="${category.getName()}"></option>
+        </select>
+        <select class="form-select" aria-label="Default select example" th:field="*{manufacturer}">
+            <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.getName()}"
+                    th:text="${manufacturer.getName()}"></option>
+        </select>
+        <div class="col-12">
+            <button class="cybr-btn">Add device</button>
+        </div>
+    </form>
+
+    <table class="table table-dark table-hover" style="width: 60%;">
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Country</th>
+            <th>Category</th>
+            <th>Manufacture</th>
+            <th>URL</th>
+        </tr>
+        <tbody th:each="device : ${devices}">
+        <tr>
+            <td><p th:text="${device.getId()}"></p></td>
+            <td><p th:text="${device.getName()}"></p></td>
+            <td><p th:text="${device.getPrice()}"></p></td>
+            <td><p th:text="${device.getCountry()}"></p></td>
+            <td><p th:text="${device.getCategory().getName()}"></p></td>
+            <td><p th:text="${device.getManufacturer().getName()}"></p></td>
+            <td><p th:text="${device.getUrl()}"></p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+</html>

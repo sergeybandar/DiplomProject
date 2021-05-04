@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table table-dark table-hover">
+    <tbody th:each="order : ${orders}">
+    <tr>
+        <td><p th:text="${order.getId()}"></p></td>
+        <td><p th:text="${order.getUser().getUserName()}"></p></td>
+        <td><p th:text="${order.getOrderStatus()"></p></td>
+    </tr>
+    <tr th:each="deviceNumber : ${order.deviceNumberList}">
+        <td>
+            <p th:text="${deviceNumber.device.name}"></p></td>
+        <td><p th:text="${deviceNumber.number}"></p></td>
+        <td><p th:text="${deviceNumber.device.price}"></p></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
