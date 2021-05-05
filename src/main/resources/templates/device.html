@@ -10,6 +10,8 @@
     <title>Title</title>
 </head>
 <body>
+<header th:insert="_header.html"></header>
+
 <div style="width: 60%; margin-left: auto; margin-right: auto">
     <div style="display: flex; margin-top: 25px; border: 1px solid black">
         <div class="img" style="width: 31%;">
@@ -21,7 +23,7 @@
                 <h4 th:text="${device.getPrice()}" style="text-align: center;"></h4>
             <form action="/addDevice" th:object="${basketModel}" method="post">
                 <input type="hidden" name="id" id="id" th:value="${device.getId()}">
-                <input type="hidden" name="redirect" id="redirect" th:value="'categories/'+${device.getCategory().getName()}+'/'+${device.getCategory().getId()}">
+                <input type="hidden" name="redirect" id="redirect" th:value="'categories/'+${device.getCategory().getName()}+'/'+${device.getId()}">
                 <button>Add</button>
             </form>
             </div>

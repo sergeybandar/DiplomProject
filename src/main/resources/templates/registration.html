@@ -194,6 +194,8 @@
     </style>
 </head>
 <body>
+<header th:insert="_header.html"></header>
+<h2 th:text="${message}"></h2>
 <div style="width: 60%; display: block; margin-left: auto; margin-right: auto">
     <form class="row g-3" th:action="@{/registration}" th:object="${user}" method="post" >
         <div class="form-floating mb-3">

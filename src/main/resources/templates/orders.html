@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<header th:insert="_header.html"></header>
 <div style="width: 60%; margin-left: auto; margin-right: auto">
 <table class="table table-dark table-hover">
     <tbody th:each="order : ${orders}">

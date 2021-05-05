@@ -10,6 +10,8 @@
     <title>Title</title>
 </head>
 <body>
+<header th:insert="_header.html"></header>
+
 <div style="width: 60%; display: block; margin-left: auto; margin-right: auto">
 <form class="row g-3" th:action="@{/manufacturers}" th:object="${manufacturer}" method="post">
     <div class="form-floating mb-3">
