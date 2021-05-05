@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 60%; margin-left: auto; margin-right: auto">
+    <table class="table table-dark table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        <tbody th:each="user : ${users}">
+        <tr>
+            <td><p th:text="${user.id}"></p></td>
+            <td><p th:text="${user.userName}"></p></td>
+            <td><p th:text="${user.role}"></p></td>
+            <td><p th:if="${session.isAdmin}==true">
+                <form action="/changeUserStatus" th:object="${idModel}" method="post">
+                    <input type="hidden" name="idModel" id="idModel"
+                           th:value="${user.id}">
+                    <button>Change status</button>
+                </form>
+                </p></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -40,13 +40,13 @@ public class OrderService {
         }
     }
 
-//    public Order findOrderByName(String name) {
-//        if (orderRepository.existsOrderByName(name)) {
-//            return orderRepository.findOrderByName(name);
-//        } else {
-//            throw new OrderNotFoundException("Order not found");
-//        }
-//    }
+    public void updateOrder(Order order) {
+        if (orderRepository.existsOrderById(order.getId())) {
+             orderRepository.save(order);
+        } else {
+            throw new OrderNotFoundException("Order not found");
+        }
+    }
     public Order findOrderById(Long id) {
         if (orderRepository.existsOrderById(id)) {
             return orderRepository.findOrderById(id);

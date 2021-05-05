@@ -9,7 +9,11 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-
+<!--<a th:if="${marker} == 0">-->
+<!--    <form th:action="@{'/order/'+${order.id}}" method="post">-->
+<!--        <button>Buy technics</button>-->
+<!--    </form>-->
+<!--</a>-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
@@ -23,12 +27,26 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/categories">Categories</a>
                 </li>
+                <p th:if="${session.isUser}==true">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/basket">Basket</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/order">Order</a>
+                </li>
+                </p>
+                <p th:if="${session.isManager}==true">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/manufacturers">Manufacturers</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/orders">Orders</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/devices">Devices</a>
+                </li>
+                </p>
+                <p th:if="${session.isUser}!=true">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/registration">Registration</a>
                 </li>
@@ -36,43 +54,17 @@
                     <a class="nav-link active" aria-current="page" href="/authorization">Authorization</a>
                 </li>
                 </p>
-                <p th:if="${session.isUser}">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"
-                       href="/info">Hello ${sessionScope.user.getName()}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/calc">Calculator</a>
-                </li>
-                <p th:if="${session.isAdmin}">
+
+                </p>
+                <p th:if="${session.isAdmin}==true">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/allInfo">All users info</a>
                 </li>
-                <p>
+                </p>
+                <p th:if="${session.isUser}==true">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/out">Log out</a>
                 </li>
-                <p>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Library
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/authors">Authors</a></li>
-                            <li><a class="dropdown-item" href="/books">Books</a></li>
-                <p th:if="${session.isUser}">
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="/basket">Basket</a></li>
-                </p>
-                <p th:if="${session.isAdmin}">
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="/addBook">Add book</a></li>
-                <li><a class="dropdown-item" href="/addAuthor">Add author</a></li>
                 </p>
 
             </ul>
@@ -85,11 +77,36 @@
         </div>
     </div>
 </nav>
-<h1>Hi</h1>
-<p th:if="${session.isUser}" th:text="${session.user.getLogin()}"></p>
-<div th:if="${session.isGuest}" th:text="Guest">
-    Guest
-</div>
+
+<table class="table table-dark table-hover" style="width: 60%; margin-left: auto; margin-right: auto">
+    <tr>
+        <th>№</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Role</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td>User</td>
+        <td>User</td>
+        <td>USER</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Manager</td>
+        <td>Manager</td>
+        <td>MANAGER</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Admin</td>
+        <td>Admin</td>
+        <td>ADMIN</td>
+    </tr>
+
+</table>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

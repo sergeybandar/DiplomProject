@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -66,12 +67,12 @@ public class UserController {
                 session.setAttribute("user", byLogin);
                 session.setAttribute("isGuest", false);
                 session.setAttribute("isUser", true);
-                if (byLogin.getRole().equals(Role.ADMIN)){
-                    session.setAttribute("isAdmin", true);
+                if (byLogin.getRole().equals(Role.MANAGER)){
+                    session.setAttribute("isManager", true);
                 }
-                if (byLogin.getRole().equals(Role.SUPER_ADMIN)){
+                if (byLogin.getRole().equals(Role.ADMIN)){
+                    session.setAttribute("isManager", true);
                     session.setAttribute("isAdmin", true);
-                    session.setAttribute("isSuperAdmin", true);
                 }
                 System.out.println("Authorization complete");
                 result = "Authorization complete";
@@ -96,6 +97,30 @@ public class UserController {
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
+    @GetMapping("/allInfo")
+    public ModelAndView allInfo(ModelAndView modelAndView) {
+        List<User> allUsers=userService.getAllUsers();
+        modelAndView.addObject("users", allUsers);
+        modelAndView.addObject("idModel", new IdModel());
+        modelAndView.setViewName("allInfo");
+        return modelAndView;
+    }
+    @PostMapping("/changeUserStatus")
+    public ModelAndView changeUserStatus(@ModelAttribute("IdModel") IdModel idModel, ModelAndView modelAndView, HttpSession session) {
+        User user=userService.getById(idModel.getIdModel());
+        if (user.getRole().equals(Role.USER)) {
+            user.setRole(Role.MANAGER);
+        } else {
+            user.setRole(Role.USER);
+        }
+        userService.updateUser(user, user.getUserName());
+        List<User> allUsers=userService.getAllUsers();
+        modelAndView.addObject("users", allUsers);
+        modelAndView.addObject("idModel", new IdModel());
+        modelAndView.setViewName("redirect:/allInfo");
+        return modelAndView;
+    }
+
     @Autowired
     DeviceNumberService deviceNumberService;
     @Autowired
@@ -106,6 +131,10 @@ public class UserController {
     ManufacturerService manufacturerService;
     @GetMapping(path="/start")//GET localhost:8080/
     public ModelAndView start(ModelAndView modelAndView, HttpSession session){
+        if(categoryService.getAllCategories().size()!=0){
+            modelAndView.setViewName("redirect:/");
+            return modelAndView;
+        }
         Category Laptops= new Category("Laptops", "//content2.onliner.by/catalog/device/header/5d591589287bdfe724068e346033c6cc.jpeg");
         Category Tablets= new Category("Tablets", "//content2.onliner.by/catalog/device/header/8b4b1f659163bd944bd2e81f609102e6.jpeg");
         Category Monoblocks= new Category("Monoblocks", "//content2.onliner.by/catalog/device/header/951c22d1c0ae0012d7c2122ef53e67ea.jpeg");
@@ -179,6 +208,14 @@ public class UserController {
         deviceService.createDevice(device3);
         deviceService.createDevice(device4);
         deviceService.createDevice(device5);
+        User user=new User(1, "User", "User", "User");
+        User Manager=new User(2, "Manager", "Manager", "Manager");
+        Manager.setRole(Role.MANAGER);
+        User Admin=new User(3, "Admin", "Admin", "Admin");
+        Admin.setRole(Role.ADMIN);
+        userService.creatUser(user);
+        userService.creatUser(Manager);
+        userService.creatUser(Admin);
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }

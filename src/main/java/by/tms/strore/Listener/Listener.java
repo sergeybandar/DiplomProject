@@ -19,7 +19,7 @@ public class Listener implements HttpSessionListener {//WebListener
         se.getSession().setAttribute("isGuest", true);
         se.getSession().setAttribute("isUser", false);
         se.getSession().setAttribute("isAdmin", false);
-        se.getSession().setAttribute("isSuperAdmin", false);
+        se.getSession().setAttribute("isManager", false);
     }
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {

@@ -26,4 +26,10 @@ public class User {
     private String password;
     private Role role= Role.USER;
 
+    public User(long id, @Pattern(regexp = "[A-Z][a-z]{2,12}") String userName, @Pattern(regexp = "[A-Z][a-z]{2,12}") String login, @Pattern(regexp = "[A-Z][a-z]{2,12}") String password) {
+        this.id = id;
+        this.userName = userName;
+        this.login = login;
+        this.password = password;
+    }
 }
